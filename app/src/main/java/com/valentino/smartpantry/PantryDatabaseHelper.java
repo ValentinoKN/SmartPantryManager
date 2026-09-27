@@ -11,7 +11,7 @@ import java.util.List;
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "smart_pantry.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static final String TABLE_PANTRY = "pantry_items";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -37,12 +37,17 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(createPantryTable);
         createRecipeTables(db);
+        RecipeSeeder.seed(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
             createRecipeTables(db);
+        }
+
+        if (oldVersion < 3) {
+            RecipeSeeder.seed(db);
         }
     }
     public long insertIngredient(String name, double quantity, String unit) {
