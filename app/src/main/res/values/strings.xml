@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Smart Pantry Manager</string>
     <string name="pantry_title">My pantry</string>
-    <string name="pantry_description">Track what you have for your next meal.</string>
-    <string name="add_ingredient">Add ingredient</string>
+    <string name="pantry_description">Track what you have for your next meal. Tap an entry to edit; hold to delete.</string>    <string name="add_ingredient">Add ingredient</string>
     <string name="empty_pantry">Your pantry is empty. Add your first ingredient to get started.</string>
 
     <string name="ingredient_form_title">Add ingredient</string>
@@ -37,4 +36,10 @@
     <string name="edit_ingredient_title">Edit ingredient</string>
     <string name="ingredient_load_failed">Could not open this ingredient. Return to the pantry and try again.</string>
 
+    <string name="delete_ingredient_title">Delete ingredient?</string>
+    <string name="delete_ingredient_message">Delete this entry for %1$s? This cannot be undone.</string>
+    <string name="delete_action">Delete</string>
+    <string name="cancel_action">Cancel</string>
+    <string name="ingredient_deleted">Ingredient deleted.</string>
+    <string name="ingredient_delete_failed">Could not delete the ingredient. Please try again.</string>
 </resources>

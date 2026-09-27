@@ -148,4 +148,13 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)});
     }
+
+    public int deleteIngredient(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        return db.delete(
+                TABLE_PANTRY,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(id)});
+    }
 }

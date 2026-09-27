@@ -15,12 +15,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
     private PantryAdapter pantryAdapter;
     private TextView emptyPantryText;
     private int loadVersion = 0;
+    private boolean deleteInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         pantryList.setOnItemClickListener((parent, view, position, id) -> {
             PantryItem ingredient = pantryAdapter.getItem(position);
 
+
             if (ingredient != null) {
                 Intent intent = new Intent(
                         MainActivity.this, IngredientActivity.class);
@@ -61,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        pantryList.setOnItemLongClickListener(
+                (parent, view, position, id) -> {
+
+                    PantryItem ingredient = pantryAdapter.getItem(position);
+
+                    if (ingredient != null && !deleteInProgress) {
+                        confirmDelete(ingredient);
+                    }
+
+                    return true;
+                });
 
         findViewById(R.id.button_add_ingredient)
                 .setOnClickListener(view -> {
@@ -118,6 +134,57 @@ public class MainActivity extends AppCompatActivity {
                     emptyPantryText.setText(R.string.pantry_load_failed);
                 });
             }
+        }).start();
+    }
+
+    private void confirmDelete(PantryItem ingredient) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_ingredient_title)
+                .setMessage(getString(
+                        R.string.delete_ingredient_message,
+                        ingredient.getName()))
+                .setNegativeButton(R.string.cancel_action, null)
+                .setPositiveButton(
+                        R.string.delete_action,
+                        (dialog, which) -> deleteIngredient(ingredient.getId()))
+                .show();
+    }
+
+    private void deleteIngredient(long ingredientId) {
+        if (deleteInProgress) {
+            return;
+        }
+
+        deleteInProgress = true;
+
+        new Thread(() -> {
+            boolean successful = false;
+
+            try (PantryDatabaseHelper database =
+                         new PantryDatabaseHelper(getApplicationContext())) {
+                successful = database.deleteIngredient(ingredientId) == 1;
+            } catch (SQLiteException exception) {
+                Log.e("MainActivity", "Could not delete ingredient", exception);
+            }
+
+            final boolean deleted = successful;
+
+            runOnUiThread(() -> {
+                deleteInProgress = false;
+
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                Toast.makeText(
+                        MainActivity.this,
+                        deleted
+                                ? R.string.ingredient_deleted
+                                : R.string.ingredient_delete_failed,
+                        Toast.LENGTH_SHORT).show();
+
+                loadPantry();
+            });
         }).start();
     }
 }
