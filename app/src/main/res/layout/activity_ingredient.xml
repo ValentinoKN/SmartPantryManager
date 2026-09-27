@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ingredient_form_title"
+            android:id="@+id/text_ingredient_title"
             android:textSize="28sp"
             android:textStyle="bold" />
 

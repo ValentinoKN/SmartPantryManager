@@ -34,4 +34,7 @@
     <string name="pantry_loading">Loading pantry…</string>
     <string name="pantry_load_failed">Could not load your pantry. Leave this screen and return to try again.</string>
 
+    <string name="edit_ingredient_title">Edit ingredient</string>
+    <string name="ingredient_load_failed">Could not open this ingredient. Return to the pantry and try again.</string>
+
 </resources>

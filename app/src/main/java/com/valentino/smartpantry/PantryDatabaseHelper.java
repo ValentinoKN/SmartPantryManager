@@ -97,4 +97,55 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         return ingredients;
     }
 
+    public PantryItem getIngredientById(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_QUANTITY,
+                COLUMN_UNIT
+        };
+
+        try (Cursor cursor = db.query(
+                TABLE_PANTRY,
+                columns,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null)) {
+
+            if (cursor.moveToFirst()) {
+                return new PantryItem(
+                        cursor.getLong(
+                                cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                        cursor.getDouble(
+                                cursor.getColumnIndexOrThrow(COLUMN_QUANTITY)),
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow(COLUMN_UNIT)));
+            }
+        }
+
+        return null;
+    }
+
+    public int updateIngredient(
+            long id, String name, double quantity, String unit) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, name.trim());
+        values.put(COLUMN_QUANTITY, quantity);
+        values.put(COLUMN_UNIT, unit);
+
+        return db.update(
+                TABLE_PANTRY,
+                values,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(id)});
+    }
 }

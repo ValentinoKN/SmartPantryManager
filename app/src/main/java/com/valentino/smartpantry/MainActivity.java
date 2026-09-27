@@ -47,6 +47,21 @@ public class MainActivity extends AppCompatActivity {
         pantryList.setAdapter(pantryAdapter);
         pantryList.setEmptyView(emptyPantryText);
 
+        pantryList.setOnItemClickListener((parent, view, position, id) -> {
+            PantryItem ingredient = pantryAdapter.getItem(position);
+
+            if (ingredient != null) {
+                Intent intent = new Intent(
+                        MainActivity.this, IngredientActivity.class);
+
+                intent.putExtra(
+                        IngredientActivity.EXTRA_INGREDIENT_ID,
+                        ingredient.getId());
+
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.button_add_ingredient)
                 .setOnClickListener(view -> {
                     Intent intent = new Intent(
