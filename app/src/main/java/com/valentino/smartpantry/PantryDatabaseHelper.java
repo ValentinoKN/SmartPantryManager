@@ -191,4 +191,11 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE INDEX index_recipe_ingredients_recipe_id "
                         + "ON recipe_ingredients(recipe_id)");
     }
+
+    public List<Recipe> getSuggestedRecipes() {
+        SQLiteDatabase db = getReadableDatabase();
+        List<PantryItem> pantry = getAllIngredients();
+
+        return RecipeMatcher.findMatches(db, pantry);
+    }
 }

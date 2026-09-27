@@ -46,4 +46,11 @@
 
     <string name="menu_suggested_recipes">Suggested recipes</string>
     <string name="menu_settings">Settings</string>
+
+    <string name="recipe_matching_explanation">Each recipe listed has all its required ingredients in sufficient quantities. Choose one meal; ingredients are not deducted automatically.</string>
+    <string name="recipes_loading">Checking your pantry…</string>
+    <string name="recipes_empty">No recipes match your pantry yet. Add the ingredients and quantities needed for a meal.</string>
+    <string name="recipes_load_failed">Could not load suggestions. Go back and open this screen to try again.</string>
+
+
 </resources>
