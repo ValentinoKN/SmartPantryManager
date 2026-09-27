@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,11 +115,21 @@ public class MainActivity extends AppCompatActivity {
         emptyPantryText.setText(R.string.pantry_loading);
         pantryAdapter.clear();
 
+        final boolean newestFirst = getSharedPreferences(
+                SettingsActivity.PREFERENCES_NAME, MODE_PRIVATE)
+                .getBoolean(SettingsActivity.KEY_NEWEST_FIRST, false);
+
         new Thread(() -> {
             try (PantryDatabaseHelper database =
                          new PantryDatabaseHelper(getApplicationContext())) {
 
                 List<PantryItem> ingredients = database.getAllIngredients();
+                if (newestFirst) {
+                    Collections.sort(
+                            ingredients,
+                            (first, second) -> Long.compare(
+                                    second.getId(), first.getId()));
+                }
 
                 runOnUiThread(() -> {
                     if (isFinishing() || isDestroyed()

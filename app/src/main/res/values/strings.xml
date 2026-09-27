@@ -58,4 +58,10 @@
     <string name="recipe_steps_heading">Preparation</string>
     <string name="recipe_ingredient_line">• %1$s %2$s — %3$s</string>
     <string name="recipe_quantity_notes">Bread quantities count slices. Rice quantities are dry weights. Tuna, chickpeas, kidney beans and sweetcorn refer to drained, ready-to-eat tinned ingredients. Other “each” quantities count individual items.</string>
+
+    <string name="settings_description">Choose how your pantry list is arranged.</string>
+    <string name="settings_newest_first">Show newest ingredients first</string>
+    <string name="settings_sort_explanation">When off, ingredients are sorted alphabetically. This changes display order only; recipe matching stays the same.</string>
+
+
 </resources>
