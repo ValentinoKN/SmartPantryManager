@@ -30,4 +30,8 @@
     <string name="ingredient_saved">Ingredient saved.</string>
     <string name="ingredient_save_failed">Could not save the ingredient. Please try again.</string>
 
+    <string name="pantry_item_amount">%1$s %2$s</string>
+    <string name="pantry_loading">Loading pantry…</string>
+    <string name="pantry_load_failed">Could not load your pantry. Leave this screen and return to try again.</string>
+
 </resources>

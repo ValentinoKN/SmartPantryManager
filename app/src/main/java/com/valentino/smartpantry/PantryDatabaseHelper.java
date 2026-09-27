@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
@@ -55,5 +58,43 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_PANTRY, null, values);
     }
 
+    public List<PantryItem> getAllIngredients() {
+        List<PantryItem> ingredients = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_QUANTITY,
+                COLUMN_UNIT
+        };
+
+        try (Cursor cursor = db.query(
+                TABLE_PANTRY,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                COLUMN_NAME + " COLLATE NOCASE ASC, " + COLUMN_ID + " ASC")) {
+
+            int idColumn = cursor.getColumnIndexOrThrow(COLUMN_ID);
+            int nameColumn = cursor.getColumnIndexOrThrow(COLUMN_NAME);
+            int quantityColumn = cursor.getColumnIndexOrThrow(COLUMN_QUANTITY);
+            int unitColumn = cursor.getColumnIndexOrThrow(COLUMN_UNIT);
+
+            while (cursor.moveToNext()) {
+                PantryItem ingredient = new PantryItem(
+                        cursor.getLong(idColumn),
+                        cursor.getString(nameColumn),
+                        cursor.getDouble(quantityColumn),
+                        cursor.getString(unitColumn));
+
+                ingredients.add(ingredient);
+            }
+        }
+
+        return ingredients;
+    }
 
 }
