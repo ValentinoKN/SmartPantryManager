@@ -11,8 +11,7 @@ import java.util.List;
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "smart_pantry.db";
-    private static final int DATABASE_VERSION = 1;
-
+    private static final int DATABASE_VERSION = 2;
     public static final String TABLE_PANTRY = "pantry_items";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -37,16 +36,15 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                         + ")";
 
         db.execSQL(createPantryTable);
+        createRecipeTables(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Add a data-preserving migration before increasing DATABASE_VERSION.
-        throw new IllegalStateException(
-                "Missing database migration from "
-                        + oldVersion + " to " + newVersion);
+        if (oldVersion < 2) {
+            createRecipeTables(db);
+        }
     }
-
     public long insertIngredient(String name, double quantity, String unit) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -156,5 +154,36 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 TABLE_PANTRY,
                 COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)});
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    private void createRecipeTables(SQLiteDatabase db) {
+        db.execSQL(
+                "CREATE TABLE recipes ("
+                        + "_id INTEGER PRIMARY KEY, "
+                        + "name TEXT NOT NULL CHECK(length(trim(name)) > 0), "
+                        + "steps TEXT NOT NULL CHECK(length(trim(steps)) > 0)"
+                        + ")");
+
+        db.execSQL(
+                "CREATE TABLE recipe_ingredients ("
+                        + "_id INTEGER PRIMARY KEY, "
+                        + "recipe_id INTEGER NOT NULL, "
+                        + "name TEXT NOT NULL CHECK(length(trim(name)) > 0), "
+                        + "quantity REAL NOT NULL CHECK(quantity > 0), "
+                        + "unit TEXT NOT NULL "
+                        + "CHECK(unit IN ('g', 'kg', 'ml', 'l', 'each')), "
+                        + "FOREIGN KEY(recipe_id) REFERENCES recipes(_id) "
+                        + "ON DELETE CASCADE"
+                        + ")");
+
+        db.execSQL(
+                "CREATE INDEX index_recipe_ingredients_recipe_id "
+                        + "ON recipe_ingredients(recipe_id)");
     }
 }
