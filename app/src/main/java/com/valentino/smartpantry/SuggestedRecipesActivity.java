@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.Intent;
 
 public class SuggestedRecipesActivity extends AppCompatActivity {
 
@@ -46,6 +47,21 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
 
         list.setAdapter(adapter);
         list.setEmptyView(emptyText);
+        list.setOnItemClickListener((parent, view, position, id) -> {
+            Recipe recipe = adapter.getItem(position);
+
+            if (recipe != null) {
+                Intent intent = new Intent(
+                        SuggestedRecipesActivity.this,
+                        RecipeDetailActivity.class);
+
+                intent.putExtra(
+                        RecipeDetailActivity.EXTRA_RECIPE_ID,
+                        recipe.getId());
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

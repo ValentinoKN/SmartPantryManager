@@ -198,4 +198,48 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         return RecipeMatcher.findMatches(db, pantry);
     }
+
+    public Recipe getRecipeById(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        try (Cursor cursor = db.query(
+                "recipes",
+                new String[]{"_id", "name", "steps"},
+                "_id = ?",
+                new String[]{String.valueOf(id)},
+                null, null, null)) {
+
+            if (cursor.moveToFirst()) {
+                return new Recipe(
+                        cursor.getLong(cursor.getColumnIndexOrThrow("_id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("steps")));
+            }
+        }
+
+        return null;
+    }
+
+    public List<PantryItem> getRecipeIngredients(long recipeId) {
+        List<PantryItem> ingredients = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        try (Cursor cursor = db.query(
+                "recipe_ingredients",
+                new String[]{"_id", "name", "quantity", "unit"},
+                "recipe_id = ?",
+                new String[]{String.valueOf(recipeId)},
+                null, null, "_id ASC")) {
+
+            while (cursor.moveToNext()) {
+                ingredients.add(new PantryItem(
+                        cursor.getLong(cursor.getColumnIndexOrThrow("_id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("quantity")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("unit"))));
+            }
+        }
+
+        return ingredients;
+    }
 }

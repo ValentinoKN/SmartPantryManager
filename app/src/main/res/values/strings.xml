@@ -52,5 +52,10 @@
     <string name="recipes_empty">No recipes match your pantry yet. Add the ingredients and quantities needed for a meal.</string>
     <string name="recipes_load_failed">Could not load suggestions. Go back and open this screen to try again.</string>
 
-
+    <string name="recipe_detail_loading">Loading recipe…</string>
+    <string name="recipe_detail_failed">Could not load this recipe. Go back and try again.</string>
+    <string name="recipe_ingredients_heading">Ingredients — one serving</string>
+    <string name="recipe_steps_heading">Preparation</string>
+    <string name="recipe_ingredient_line">• %1$s %2$s — %3$s</string>
+    <string name="recipe_quantity_notes">Bread quantities count slices. Rice quantities are dry weights. Tuna, chickpeas, kidney beans and sweetcorn refer to drained, ready-to-eat tinned ingredients. Other “each” quantities count individual items.</string>
 </resources>
