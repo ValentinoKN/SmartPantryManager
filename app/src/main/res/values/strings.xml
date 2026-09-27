@@ -21,4 +21,10 @@
         <item>each</item>
     </string-array>
 
+    <string name="error_ingredient_name">Enter an ingredient name.</string>
+    <string name="error_quantity_required">Enter a quantity.</string>
+    <string name="error_quantity_invalid">Enter a valid number greater than zero.</string>
+    <string name="error_unit_invalid">Select a supported unit.</string>
+    <string name="ingredient_validation_passed">Input checked. Saving is not connected yet.</string>
+
 </resources>
