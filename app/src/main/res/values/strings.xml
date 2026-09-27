@@ -27,4 +27,7 @@
     <string name="error_unit_invalid">Select a supported unit.</string>
     <string name="ingredient_validation_passed">Input checked. Saving is not connected yet.</string>
 
+    <string name="ingredient_saved">Ingredient saved.</string>
+    <string name="ingredient_save_failed">Could not save the ingredient. Please try again.</string>
+
 </resources>

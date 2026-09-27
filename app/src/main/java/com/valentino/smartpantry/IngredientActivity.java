@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import android.database.sqlite.SQLiteException;
+import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -90,10 +91,7 @@ public class IngredientActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(
-                this,
-                R.string.ingredient_validation_passed,
-                Toast.LENGTH_LONG).show();
+        saveIngredient(name, quantity, unit);
     }
 
     private void showQuantityError() {
@@ -107,5 +105,51 @@ public class IngredientActivity extends AppCompatActivity {
                 || unit.equals("ml")
                 || unit.equals("l")
                 || unit.equals("each");
+    }
+
+    private void saveIngredient(String name, double quantity, String unit) {
+        Button saveButton = findViewById(R.id.button_save_ingredient);
+
+        // Prevent repeated taps from inserting the same form twice.
+        saveButton.setEnabled(false);
+
+        // Database work runs separately so the screen stays responsive.
+        new Thread(() -> {
+            long insertedId = -1;
+
+            try (PantryDatabaseHelper database =
+                         new PantryDatabaseHelper(getApplicationContext())) {
+                insertedId = database.insertIngredient(name, quantity, unit);
+            } catch (SQLiteException exception) {
+                android.util.Log.e(
+                        "IngredientActivity",
+                        "Could not insert pantry ingredient",
+                        exception);
+            }
+
+            final boolean saved = insertedId != -1;
+
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                saveButton.setEnabled(true);
+
+                if (saved) {
+                    Toast.makeText(
+                            IngredientActivity.this,
+                            R.string.ingredient_saved,
+                            Toast.LENGTH_SHORT).show();
+
+                    finish();
+                } else {
+                    Toast.makeText(
+                            IngredientActivity.this,
+                            R.string.ingredient_save_failed,
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }).start();
     }
 }
