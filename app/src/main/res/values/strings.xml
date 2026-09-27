@@ -4,4 +4,21 @@
     <string name="pantry_description">Track what you have for your next meal.</string>
     <string name="add_ingredient">Add ingredient</string>
     <string name="empty_pantry">Your pantry is empty. Add your first ingredient to get started.</string>
+
+    <string name="ingredient_form_title">Add ingredient</string>
+    <string name="ingredient_name_label">Ingredient name</string>
+    <string name="ingredient_name_hint">e.g. Oats</string>
+    <string name="ingredient_quantity_label">Quantity</string>
+    <string name="ingredient_quantity_hint">e.g. 500</string>
+    <string name="ingredient_unit_label">Unit</string>
+    <string name="save_ingredient">Save ingredient</string>
+
+    <string-array name="ingredient_units">
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>l</item>
+        <item>each</item>
+    </string-array>
+
 </resources>
