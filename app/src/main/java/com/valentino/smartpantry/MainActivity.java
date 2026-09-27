@@ -18,6 +18,11 @@ import java.util.List;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.appcompat.widget.Toolbar;
+
 public class MainActivity extends AppCompatActivity {
 
     private PantryAdapter pantryAdapter;
@@ -30,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main), (v, insets) -> {
@@ -186,5 +194,32 @@ public class MainActivity extends AppCompatActivity {
                 loadPantry();
             });
         }).start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_pantry, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int selectedId = item.getItemId();
+
+        if (selectedId == R.id.action_suggested_recipes) {
+            Intent intent = new Intent(
+                    MainActivity.this, SuggestedRecipesActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (selectedId == R.id.action_settings) {
+            Intent intent = new Intent(
+                    MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
