@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pantry_red">#F3A5AB</color>
+    <color name="pantry_on_red">#510813</color>
+    <color name="pantry_background">#1C1516</color>
+    <color name="pantry_surface">#281F20</color>
+    <color name="pantry_text">#F6ECEB</color>
+    <color name="pantry_muted">#D5BDBE</color>
+    <color name="pantry_line">#584144</color>
+    <color name="pantry_soft">#3C272A</color>
+    <color name="pantry_heading">#F3A5AB</color>
+    <color name="pantry_toolbar">#78141E</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

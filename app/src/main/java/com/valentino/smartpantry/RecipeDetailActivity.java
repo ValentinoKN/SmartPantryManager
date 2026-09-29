@@ -43,6 +43,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         stepsText = findViewById(R.id.text_recipe_steps);
         recipeContent = findViewById(R.id.recipe_content);
 
+        // Fetch details using the recipe selected on the suggestions screen.
         long recipeId = getIntent().getLongExtra(EXTRA_RECIPE_ID, -1);
 
         if (recipeId == -1) {

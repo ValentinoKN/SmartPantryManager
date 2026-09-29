@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class RecipeSeeder {
 
+    // Called from database creation or migration, inside the helper transaction.
     public static void seed(SQLiteDatabase db) {
         long id;
 

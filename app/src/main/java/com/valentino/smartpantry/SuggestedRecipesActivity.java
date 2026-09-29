@@ -67,6 +67,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Recheck the pantry whenever this screen becomes active again.
         loadRecipes();
     }
 

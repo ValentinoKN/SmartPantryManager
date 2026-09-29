@@ -42,10 +42,12 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Add the new tables without dropping the pantry the user has already saved.
         if (oldVersion < 2) {
             createRecipeTables(db);
         }
 
+        // Seed during this upgrade only, not every time a screen opens.
         if (oldVersion < 3) {
             RecipeSeeder.seed(db);
         }
@@ -145,6 +147,7 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_QUANTITY, quantity);
         values.put(COLUMN_UNIT, unit);
 
+        // Use the ID so other entries with the same name are left alone.
         return db.update(
                 TABLE_PANTRY,
                 values,

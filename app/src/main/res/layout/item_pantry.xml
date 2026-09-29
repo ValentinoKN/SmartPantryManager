@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/pantry_surface"
+    android:minHeight="80dp"
     android:padding="16dp">
 
     <TextView
@@ -14,6 +16,7 @@
 
     <TextView
         android:id="@+id/text_ingredient_amount"
+        android:textColor="@color/pantry_muted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

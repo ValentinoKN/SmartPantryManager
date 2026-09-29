@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         SwitchCompat newestFirstSwitch =
                 findViewById(R.id.switch_newest_first);
 
+        // Restore the saved choice before listening for the user changing it.
         newestFirstSwitch.setChecked(
                 preferences.getBoolean(KEY_NEWEST_FIRST, false));
 

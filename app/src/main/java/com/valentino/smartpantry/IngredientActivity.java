@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class IngredientActivity extends AppCompatActivity {
     public static final String EXTRA_INGREDIENT_ID = "ingredient_id";
 
+    // No ID means a new ingredient. An existing ID means update that same row.
     private long ingredientId = -1;
 
     private EditText nameInput;
@@ -77,6 +78,7 @@ public class IngredientActivity extends AppCompatActivity {
             return;
         }
 
+        // A numeric keyboard still allows incomplete input, so check the value here too.
         double quantity;
 
         try {
@@ -123,6 +125,7 @@ public class IngredientActivity extends AppCompatActivity {
 
     private void saveIngredient(String name, double quantity, String unit) {
         Button saveButton = findViewById(R.id.button_save_ingredient);
+        // Stop a second tap from saving the same form while the first save is running.
         saveButton.setEnabled(false);
 
         new Thread(() -> {

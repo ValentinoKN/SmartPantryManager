@@ -35,6 +35,7 @@ public class PantryAdapter extends ArrayAdapter<PantryItem> {
         TextView nameText = row.findViewById(R.id.text_ingredient_name);
         TextView amountText = row.findViewById(R.id.text_ingredient_amount);
 
+        // Fill both fields again because this row may previously have shown another item.
         PantryItem ingredient = getItem(position);
 
         if (ingredient != null) {

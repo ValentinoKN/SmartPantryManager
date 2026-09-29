@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="pantry_red">#8C1823</color>
+    <color name="pantry_on_red">#FFFFFF</color>
+    <color name="pantry_background">#FFF9F6</color>
+    <color name="pantry_surface">#FFFFFF</color>
+    <color name="pantry_text">#302526</color>
+    <color name="pantry_muted">#69595A</color>
+    <color name="pantry_line">#E8D4D3</color>
+    <color name="pantry_soft">#F8E8E6</color>
+    <color name="pantry_heading">#801722</color>
+    <color name="pantry_toolbar">#78141E</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(
                         MainActivity.this, IngredientActivity.class);
 
+                // Names can repeat, so pass the exact row ID for editing.
                 intent.putExtra(
                         IngredientActivity.EXTRA_INGREDIENT_ID,
                         ingredient.getId());
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Coming back from adding or editing should show the latest saved values.
         loadPantry();
     }
 
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadPantry() {
+        // A newer refresh should not be overwritten by an older query finishing late.
         final int requestVersion = ++loadVersion;
 
         emptyPantryText.setText(R.string.pantry_loading);

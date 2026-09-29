@@ -17,6 +17,7 @@ public class RecipeMatcher {
                 .toLowerCase(Locale.ROOT)
                 .replaceAll("\\s+", " ");
 
+        // Keep aliases explicit. Removing the last s from every word would break names.
         switch (cleaned) {
             case "eggs":
                 return "egg";
@@ -72,6 +73,7 @@ public class RecipeMatcher {
             double quantity,
             String unit) {
 
+        // The unit is part of the key: grams must never satisfy a millilitre requirement.
         String key = normaliseName(name) + "|" + baseUnit(unit);
         BigDecimal previous = totals.get(key);
 
@@ -79,6 +81,7 @@ public class RecipeMatcher {
             previous = BigDecimal.ZERO;
         }
 
+        // Separate pantry entries still contribute to the same compatible total.
         totals.put(key, previous.add(baseQuantity(quantity, unit)));
     }
 
@@ -136,6 +139,7 @@ public class RecipeMatcher {
 
                     BigDecimal owned = available.get(entry.getKey());
 
+                    // One missing ingredient or short quantity rules out the whole recipe.
                     if (owned == null
                             || owned.compareTo(entry.getValue()) < 0) {
                         canMake = false;

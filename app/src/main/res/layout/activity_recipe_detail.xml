@@ -9,14 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/text_recipe_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/recipe_detail_loading"
-            android:textSize="28sp"
+            android:textSize="26sp"
+            android:textColor="@color/pantry_heading"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -32,6 +33,7 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/recipe_ingredients_heading"
                 android:textSize="20sp"
+                android:textColor="@color/pantry_heading"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,6 +49,7 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/recipe_steps_heading"
                 android:textSize="20sp"
+                android:textColor="@color/pantry_heading"
                 android:textStyle="bold" />
 
             <TextView
